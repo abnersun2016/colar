@@ -54,7 +54,7 @@ func (root *node) insertNode(path string, handle Handler, caseSensitive bool) {
 				if strings.HasPrefix(strs[i], ":") {
 					curr = curr.insert(strs[i][1:], true)
 				} else {
-					//遍历子节点，查找最长公共前缀
+					//traverse child nodes to find the longest common prefix
 					buf := new(bytes.Buffer)
 					for m := range curr.children {
 						if curr.children[m].nType != param {
@@ -71,14 +71,14 @@ func (root *node) insertNode(path string, handle Handler, caseSensitive bool) {
 									break
 								}
 							}
-							//长到公共前缀
+							//finded the common prefix
 							if buf.Len() > 0 {
 								if buf.Len() < len(curr.children[m].nValue) {
-									//分裂该节点
+									//split the node
 									child := curr.children[m]
 									child.regex = regexp.MustCompile(child.nValue[buf.Len():])
 									child.nValue = child.regex.String()
-									//声明该子节点的父节点
+									//declare the parent of this child node
 									parent := new(node)
 									parent.nType = normal
 									parent.regex = regexp.MustCompile(buf.String())
@@ -86,9 +86,9 @@ func (root *node) insertNode(path string, handle Handler, caseSensitive bool) {
 									parent.cPrefix += child.nValue[:1]
 									parent.children = append(parent.children, child)
 
-									//删除该节点的子节点m
+									//delete the child node of the node index of m
 									curr.children = remove(curr.children, m)
-									//添加新节点
+									//add a new node
 									curr.children = append(curr.children, parent)
 
 									if buf.Len() < len(strs[i]) {
@@ -107,7 +107,7 @@ func (root *node) insertNode(path string, handle Handler, caseSensitive bool) {
 							}
 						}
 					}
-					//未找到公共前缀
+					//the same prefix not found
 					if buf.Len() == 0 {
 						curr = curr.insert(strs[i], false)
 					}
@@ -199,7 +199,7 @@ func (root *node) findNode(path string, caseSensitive bool) (*node, *pathParam.P
 	nValue := strs[index]
 loop:
 	for {
-		//查找前缀子节点
+		//find prefix subnodes
 		var matchIndex = -1
 		var catchAllIndex = -1
 		for i, prefix := range curr.cPrefix {
@@ -215,7 +215,7 @@ loop:
 				catchAllIndex = i
 			}
 		}
-		//确定优先级
+		//determine the priority
 		if matchIndex >= 0 && catchAllIndex >= 0 {
 			if strings.Compare(curr.children[matchIndex].nValue, nValue) == 0 {
 				catchAllIndex = -1
