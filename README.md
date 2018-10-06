@@ -16,7 +16,7 @@ import (
     "log"
 )
 
-func Index(context *context.Context) {
+func index(context *context.Context) {
     context.ResponseWriter.Write(([]byte)("hello word"))
 }
 
@@ -32,7 +32,7 @@ func updateComments(context *context.Context) {
 
 func main() {
     router := colar.New()
-    router.Get("/", Index)
+    router.Get("/", index)
     router.Get("/comments/:Id", getComments)
     router.Put("/comments/:Id([0-9]*)", updateComments)
     log.Fatal(http.ListenAndServe(":8080", router))
