@@ -22,10 +22,12 @@ func Index(context *context.Context) {
 
 func getComments(context *context.Context) {
     context.ResponseWriter.Write(([]byte)("get comments"))
+    fmt.Println(context.PathParams.GetByName("Id"))
 }
 
 func updateComments(context *context.Context) {
     context.ResponseWriter.Write(([]byte)("update comments"))
+    fmt.Println(context.PathParams.GetByName("Id"))
 }
 
 func main() {
