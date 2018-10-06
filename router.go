@@ -38,6 +38,7 @@ var (
 	trace       *node
 )
 
+//surpported http method
 var (
 	HTTPMETHOD = map[string]bool{
 		"GET":     true,
@@ -123,7 +124,7 @@ func (r *Router) initRootTree(method string) {
 		r.trees[method] = rootNode
 	}
 }
-
+//recover from panic
 func (r *Router) recov(context *context.Context) {
 	if recov := recover(); r != nil {
 		r.RecoverHandler(context, recov)

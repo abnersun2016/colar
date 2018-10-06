@@ -4,14 +4,11 @@ import (
 	"log"
 	"net/http"
 	"testing"
+	"github.com/abnersun2016/colar"
 )
 
-var route *Router
-
-func init() {
-	route = New()
-}
 func TestRouter_AddMethod(t *testing.T) {
+	route := colar.New()
 	route.AddMethod("*", "gitchat/posts", handle1)
 	route.AddMethod("post", "gitchat/posts/:Id", handle2)
 	route.AddMethod("*", "gitchat/posts/Gomments/ID", handle3)

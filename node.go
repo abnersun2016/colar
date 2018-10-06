@@ -294,13 +294,15 @@ func checkParams(paths []string) (uint8, error) {
 					continue
 				}
 			}
-			error = fmt.Errorf("the param length of following behind ':' must be greater than zero,paths=%s", paths)
+			error = fmt.Errorf("param must give a name behind ':',invalued paths=%s", paths)
 			return count, error
 		}
 	}
 	return count, error
 }
 
+//remove the '/' in the first or last of path
+//example '/app/ab/admin/simple/' -> 'app/ab/admin/simple'
 func revampTrailSlash(path string) string {
 	buf := new(bytes.Buffer)
 	splits := strings.Split(path, "/")
