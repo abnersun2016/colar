@@ -1,6 +1,7 @@
 package colar
 
 import (
+	"bytes"
 	"colar/context"
 	"fmt"
 	"regexp"

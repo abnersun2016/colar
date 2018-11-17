@@ -124,6 +124,7 @@ func (r *Router) initRootTree(method string) {
 		r.trees[method] = rootNode
 	}
 }
+
 //recover from panic
 func (r *Router) recov(context *context.Context) {
 	if recov := recover(); r != nil {

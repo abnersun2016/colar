@@ -1,10 +1,10 @@
 package colar
 
 import (
+	"github.com/abnersun2016/colar"
 	"log"
 	"net/http"
 	"testing"
-	"github.com/abnersun2016/colar"
 )
 
 func TestRouter_AddMethod(t *testing.T) {
